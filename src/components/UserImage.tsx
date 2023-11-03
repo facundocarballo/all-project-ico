@@ -42,7 +42,7 @@ export const UserImage = () => {
           h="50px"
           borderRadius={100}
           alt="user-img"
-          src={user.photoURL}
+          src={user.photoURL!}
         />
       )}
     </>

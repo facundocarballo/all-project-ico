@@ -100,6 +100,7 @@ export default function Home() {
       <VStack w="full">
         <Box h="10px" />
         <NavBar props={theNavBarProps} />
+        
       </VStack>
     </>
   );
