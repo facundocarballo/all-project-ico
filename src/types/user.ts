@@ -1,16 +1,40 @@
+import { User as FirebaseUser } from "@firebase/auth";
+import { USER_TOKEN_KEY } from "../handlers/google";
+
 class User {
     id: string;
-    email: string;
-    first_name: string;
-    last_name: string;
-    phone_number: string;
+    email: string | null;
+    display_name: string | null;
+    phone_number: string | null;
+    photoURL: string | null;
+    token?:string;
 
-    constructor (_id: string, _email: string, _first_name: string, _last_name: string, _phone_number: string) {
-        this.id = _id;
-        this.email = _email;
-        this.first_name = _first_name;
-        this.last_name = _last_name;
-        this.phone_number = _phone_number;
+    constructor (user: FirebaseUser) {
+        this.id = user.uid;
+        this.email = user.email;
+        this.display_name = user.displayName;
+        this.phone_number = user.phoneNumber;
+        this.photoURL = user.photoURL;
+    }
+
+    static async GetToken(): Promise<string|null> {
+        return localStorage.getItem(USER_TOKEN_KEY);
+    }
+
+    static async CreateUserWithCredential(
+        user: any
+    ): Promise<User> {
+        const newUser = new User(user);
+        return newUser;
+    }
+
+    async SaveToken(accessToken: string): Promise<undefined> {
+        try {
+            localStorage.setItem(USER_TOKEN_KEY, accessToken);
+            this.token = accessToken;
+        }catch (err) {
+            console.error("Error saving the token in storage ", err);
+         }
     }
 }
 

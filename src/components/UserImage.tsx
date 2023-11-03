@@ -9,7 +9,7 @@ export const UserImage = () => {
   // Methods
   const showCircle = (): boolean => {
     if (user === undefined) return true;
-    if (user.photo_url === undefined || user.photo_url === null) return true;
+    if (user.photoURL === undefined || user.photoURL === null) return true;
     return false;
   };
 
@@ -17,12 +17,12 @@ export const UserImage = () => {
     let res = "NA";
     if (user === undefined) return res;
     if (user.email === undefined) return res;
-    if (user.first_name === null) {
+    if (user.display_name === null) {
       return `${user.email?.charAt(0).toUpperCase()}${user.email
         ?.charAt(1)
         .toUpperCase()}`;
     }
-    return`${user.first_name?.charAt(0).toUpperCase()}${user.first_name
+    return`${user.display_name?.charAt(0).toUpperCase()}${user.display_name
       ?.charAt(1)
       .toUpperCase()}`;
   };
@@ -42,7 +42,7 @@ export const UserImage = () => {
           h="50px"
           borderRadius={100}
           alt="user-img"
-          src={user.photo_url}
+          src={user.photoURL}
         />
       )}
     </>
